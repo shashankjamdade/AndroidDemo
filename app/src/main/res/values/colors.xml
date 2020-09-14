@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#DC9001</color>
+    <color name="colorPrimaryDark">#DC9001</color>
+    <color name="colorAccent">#DC9001</color>
+
+    <color name="progress_grey">#707070</color>
+    <color name="red">#F25268</color>
+    <color name="green">#46BD4B</color>
+
+    <color name="colorPink">#E880FC</color>
+    <color name="colorBlue">#64FFDA</color>
+    <color name="colorLightBlue">#BBDEFB</color>
+    <color name="colorYellow">#FFC400</color>
+    <color name="colorLightBrown">#A1887F</color>
+
+</resources>
