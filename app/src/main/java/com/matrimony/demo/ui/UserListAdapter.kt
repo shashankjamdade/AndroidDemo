@@ -59,13 +59,6 @@ class UserListAdapter(
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val mView = view
-//        private val tv_name = view.tv_name
-//        private val tv_age = view.tv_age
-//        private val tv_gender = view.tv_gender
-//        private val tv_email = view.tv_email
-//        private val tv_contact = view.tv_contact
-//        private val image = view.imageView
-//        private val tv_userchoice = view.tv_userchoice
         fun bind(usr: ResultUserItem) {
             mView.tv_name.text = usr?.name?.first+" "+usr?.name?.last
             mView.tv_age.text = "${usr?.dob?.age} yrs"
@@ -75,8 +68,6 @@ class UserListAdapter(
             mView.tv_userchoice.text = "You ${usr?.userChoice}"
             Glide.with(context).load(usr?.picture?.large).placeholder(R.drawable.ic_sync)
                 .into(mView.imageView)
-
-
         }
     }
 }
