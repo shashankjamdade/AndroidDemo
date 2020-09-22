@@ -1,30 +1,14 @@
 package com.matrimony.demo.model
 
 
-//import Dob
-//import Id
-//import Info
-//import Location
-//import Login
-//import Name
-//import Picture
-//import Registered
-//import Timezone
 import androidx.room.*
 import com.matrimony.demo.db.Converters
 import com.google.gson.annotations.SerializedName
 
 data class UserListResponse(
-    @PrimaryKey//(autoGenerate = true)
-    var id: Int = 2,
     @SerializedName("results")
     var results: ArrayList<ResultUserItem>? = ArrayList()
-//    @Embedded
-//    @SerializedName("info")
-//    var info: Info? = Info()
-) {
-
-}
+)
 
 @Entity
 @TypeConverters(Converters::class)

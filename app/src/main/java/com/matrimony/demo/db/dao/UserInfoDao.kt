@@ -13,7 +13,7 @@ interface UserDao {
     fun loadUserList(): LiveData<List<ResultUserItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUserList(userListResponse: ResultUserItem)
+    fun insertUserList(userListResponse: MutableList<ResultUserItem>)
 
     @Update
     fun updateUser(user: ResultUserItem)

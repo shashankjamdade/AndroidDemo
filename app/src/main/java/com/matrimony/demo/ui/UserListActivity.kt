@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.matrimony.demo.R
-import com.matrimony.demo.listener.DatabaseListener
 import com.matrimony.demo.listener.ItemClickListener
 import com.matrimony.demo.model.ResultUserItem
 import com.matrimony.demo.model.UserListResponse
@@ -24,15 +23,10 @@ import kotlinx.android.synthetic.main.fragment_user_list.*
 import javax.inject.Inject
 
 
-class UserListActivity : DaggerAppCompatActivity(),
-    ItemClickListener, DatabaseListener {
+class UserListActivity : DaggerAppCompatActivity(), ItemClickListener {
 
-    private var userListView: View? = null
     lateinit var viewModel: UserListViewModel
     private var userListAdapter: UserListAdapter? = null
-    private var clickedId: Int? = -1
-    var mContainerId: Int = -1
-//    var database: AppDatabase? = null
 
     @Inject
     lateinit var viewmodelProviderFactory: ViewModelProviderFactory
@@ -45,33 +39,21 @@ class UserListActivity : DaggerAppCompatActivity(),
         setContentView(R.layout.activity_user_list)
         initViewModel()
         initAdapter()
-
-        if (CommonUtils.isOnline(this)) {
-            observeViewModel()
-            viewModel.fetchUserListInfo(10)
-        } else {
-            CommonUtils.createSnackBar( findViewById(android.R.id.content), "No network !")
-            val mObservableProduct: LiveData<List<ResultUserItem>>? =
-                userRepository.getAllUsers();
-            mObservableProduct?.observe(this, object : Observer<List<ResultUserItem>> {
-                override fun onChanged(@Nullable itemlist: List<ResultUserItem>?) {
-                    CommonUtils.printLog("DATARETR----> ", "${Gson().toJson(itemlist)}")
-                    if(itemlist!=null){
-                        userListAdapter?.refreshAdapter(itemlist!!)
-                    }else{
-                        CommonUtils.createSnackBar( findViewById(android.R.id.content), "No data found, please on wifi/mobile data !")
-                    }
-                }
-            })
-        }
+        fetchUserList();
     }
 
 
+    /**
+     * Initialize viewmodel
+     */
     private fun initViewModel() {
         viewModel =
             ViewModelProviders.of(this, viewmodelProviderFactory).get(UserListViewModel::class.java)
     }
 
+    /**
+     * Initialize adapter
+     */
     private fun initAdapter() {
         userListAdapter = UserListAdapter(
             arrayListOf(),
@@ -84,60 +66,63 @@ class UserListActivity : DaggerAppCompatActivity(),
         }
     }
 
-    private fun observeViewModel() {
-
-        viewModel.fetchUsersLiveData().observe(this, Observer {
+    /**
+     * Fetch user list from API or localDb
+     */
+    private fun fetchUserList() {
+        if (CommonUtils.isOnline(this)) {
+            //From API
             loading_progress.visibility = View.VISIBLE
-            it?.let {
-                val mObservableProduct: LiveData<List<ResultUserItem>>? =
-                    userRepository.getAllUsers();
-                mObservableProduct?.observe(this, object : Observer<List<ResultUserItem>> {
-                    override fun onChanged(@Nullable itemlist: List<ResultUserItem>?) {
-                        loading_progress.visibility = View.GONE
-                        CommonUtils.printLog("DATARETR----> ", "${Gson().toJson(itemlist)}")
-                        if(itemlist!=null){
-                            userListAdapter?.refreshAdapter(itemlist!!)
-                        }
+            viewModel.fetchUserListInfo(10).observe(this, Observer {
+                it?.let {
+                    loading_progress.visibility = View.GONE
+                    if(it?.results!=null && it?.results?.size!!>0){
+                        //To attach observer on livedata of Room fetching data from DB itself
+                        fetchUsersFromDb()
+                    }else{
+                        CommonUtils.createSnackBar( findViewById(android.R.id.content), resources?.getString(R.string.no_net)!!)
                     }
-                })
-//                userListAdapter?.refreshAdapter(it?.results!!)
-            }
-        })
-
+                }
+            })
+        }else{
+            //From local DB
+            fetchUsersFromDb()
+        }
+        /**
+         * If any error occured in viewmodel while fetching data will show/handle
+         */
         viewModel.fetchError().observe(this, Observer {
             it?.let {
                 if (!TextUtils.isEmpty(it)) {
-                    Toast.makeText(this, "$it", Toast.LENGTH_LONG).show()
+                    CommonUtils.createSnackBar(findViewById(android.R.id.content), "$it")
                 }
 
             }
         })
     }
 
+    fun fetchUsersFromDb(){
+        //From local DB
+        viewModel?.fetchUsersFromDb()?.observe(this, object : Observer<List<ResultUserItem>> {
+            override fun onChanged(@Nullable itemlist: List<ResultUserItem>?) {
+                loading_progress.visibility = View.GONE
+                CommonUtils.printLog("DATARETR----> ", "${Gson().toJson(itemlist)}")
+                if(itemlist!=null && itemlist?.size>0){
+                    userListAdapter?.refreshAdapter(itemlist!!)
+                }else{
+                    CommonUtils.createSnackBar( findViewById(android.R.id.content), resources?.getString(R.string.no_data)!!)
+                }
+            }
+        })
+    }
 
+    /**
+     * Will call on click of the buttons of list
+     */
     override fun setClickedInfo(data: Any?) {
         if(data!=null && data is ResultUserItem){
             viewModel?.updateUserInfo(data)
         }
-//        clickedId = data.id
-//        launchDetailFragment()
-    }
-
-    override fun getUpdatedData(obj: Any?, apiName: String) {
-        if (apiName.equals("userlist")) {
-            if (obj != null && obj is UserListResponse) {
-                userListAdapter?.refreshAdapter(obj?.results!!)
-            }
-        }
-    }
-
-    override fun IsDataInserted(apiName: String) {
-//        DBOperations.getUserResponseFromDb(
-//            database,
-//            this,
-//            this,
-//           "userlist"
-//        )
     }
 
 }

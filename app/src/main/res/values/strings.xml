@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">DemoApp</string>
+    <string name="no_net">No data found, please on wifi/mobile data !</string>
+    <string name="no_data">No data found</string>
 </resources>

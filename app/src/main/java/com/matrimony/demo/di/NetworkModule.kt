@@ -1,13 +1,10 @@
 package com.matrimony.demo.di
 
-import com.matrimony.demo.network.NetworkAPIService
-import com.matrimony.demo.network.NetworkUtil
+import com.matrimony.demo.api.NetworkAPIService
+import com.matrimony.demo.api.NetworkUtil
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,24 +13,22 @@ import javax.inject.Singleton
 
 
 @Module
-class NetworkModule {
-
+open class NetworkModule {
 
     @Singleton
     @Provides
-    fun getApiInterface(retroFit: Retrofit): NetworkAPIService? {
-        return retroFit.create(NetworkAPIService::class.java)
+    fun getApiInterface(): NetworkAPIService? {
+        return provideCoroutineRetroInfo().create(NetworkAPIService::class.java)
     }
 
     @Singleton
     @Provides
-    fun  provideCoroutineRetroInfo(okHttpClient: OkHttpClient) : Retrofit {
+    fun  provideCoroutineRetroInfo() : Retrofit {
         return  Retrofit
             .Builder()
             .baseUrl(NetworkUtil.NETWORK_BASE_URL)
-            .client(okHttpClient)
+            .client(provideOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
-//            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
     }
@@ -56,7 +51,6 @@ class NetworkModule {
     }
 
 
-    //https://blog.mindorks.com/okhttp-interceptor-making-the-most-of-it
     class MyInterceptor : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val original = chain.request()

@@ -46,7 +46,7 @@ class UserListAdapter(
         }
         holder.itemView.btn_reject.setOnClickListener {
             var item = users?.get(position);
-            item?.userChoice = "rejected"
+            item?.userChoice = "declined"
             itemClickListener.setClickedInfo(item)
         }
     }
@@ -58,23 +58,23 @@ class UserListAdapter(
     }
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val layout = view.rl_item_layout
-        private val tv_name = view.tv_name
-        private val tv_age = view.tv_age
-        private val tv_gender = view.tv_gender
-        private val tv_email = view.tv_email
-        private val tv_contact = view.tv_contact
-        private val image = view.imageView
-        private val tv_userchoice = view.tv_userchoice
+        private val mView = view
+//        private val tv_name = view.tv_name
+//        private val tv_age = view.tv_age
+//        private val tv_gender = view.tv_gender
+//        private val tv_email = view.tv_email
+//        private val tv_contact = view.tv_contact
+//        private val image = view.imageView
+//        private val tv_userchoice = view.tv_userchoice
         fun bind(usr: ResultUserItem) {
-            tv_name.text = usr?.name?.first+" "+usr?.name?.last
-            tv_age.text = "${usr?.dob?.age} yrs"
-            tv_gender.text = usr?.gender
-            tv_email.text = "Email: ${usr?.email}"
-            tv_contact.text = usr?.location?.city+", "+usr?.location?.state+", "+usr?.location?.country
-            tv_userchoice.text = "You have ${usr?.userChoice}"
+            mView.tv_name.text = usr?.name?.first+" "+usr?.name?.last
+            mView.tv_age.text = "${usr?.dob?.age} yrs"
+            mView.tv_gender.text = usr?.gender
+            mView.tv_email.text = "Email: ${usr?.email}"
+            mView.tv_contact.text = usr?.location?.city+", "+usr?.location?.state+", "+usr?.location?.country
+            mView.tv_userchoice.text = "You ${usr?.userChoice}"
             Glide.with(context).load(usr?.picture?.large).placeholder(R.drawable.ic_sync)
-                .into(image)
+                .into(mView.imageView)
 
 
         }

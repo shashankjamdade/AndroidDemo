@@ -1,4 +1,4 @@
-package com.matrimony.demo.network
+package com.matrimony.demo.api
 
 object NetworkUtil {
     const val  NETWORK_BASE_URL = "https://randomuser.me/"
