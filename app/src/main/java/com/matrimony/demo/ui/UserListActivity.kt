@@ -13,8 +13,6 @@ import com.google.gson.Gson
 import com.matrimony.demo.R
 import com.matrimony.demo.listener.ItemClickListener
 import com.matrimony.demo.model.ResultUserItem
-import com.matrimony.demo.model.UserListResponse
-import com.matrimony.demo.repository.UserRepository
 import com.matrimony.demo.util.CommonUtils
 import com.matrimony.demo.viewmodel.UserListViewModel
 import com.matrimony.demo.viewmodel.ViewModelProviderFactory
@@ -31,8 +29,6 @@ class UserListActivity : DaggerAppCompatActivity(), ItemClickListener {
     @Inject
     lateinit var viewmodelProviderFactory: ViewModelProviderFactory
 
-    @Inject
-    lateinit var userRepository: UserRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
