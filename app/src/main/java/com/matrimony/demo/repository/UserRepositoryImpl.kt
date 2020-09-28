@@ -4,14 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.matrimony.demo.api.NetworkAPIService
 import com.matrimony.demo.db.dao.UserDao
+import com.matrimony.demo.listener.UserRepository
 import com.matrimony.demo.model.ResultUserItem
 import com.matrimony.demo.model.UserListResponse
 import com.matrimony.demo.util.CommonUtils
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(val apiService: NetworkAPIService, val userDao: UserDao) {
-    fun fetchAllUsers(results: Int): MutableLiveData<UserListResponse> {
+class UserRepositoryImpl @Inject constructor(val apiService: NetworkAPIService, val userDao: UserDao):
+    UserRepository {
+    override fun fetchAllUsers(results: Int): MutableLiveData<UserListResponse> {
         val data = MutableLiveData<UserListResponse>()
         val errorOnAPI = MutableLiveData<String>()
         CoroutineScope(Dispatchers.IO).launch {
@@ -38,19 +40,19 @@ class UserRepository @Inject constructor(val apiService: NetworkAPIService, val 
         return data;
     }
 
-    fun insertUserList(userRes: MutableList<ResultUserItem>) {
+    override fun insertUserList(userRes: MutableList<ResultUserItem>) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao.insertUserList(userRes)
         }
     }
 
-    fun updateUser(userRes: ResultUserItem) {
+    override fun updateUser(userRes: ResultUserItem) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao.updateUser(userRes)
         }
     }
 
-    fun getAllUsersFromDb(): LiveData<List<ResultUserItem>> {
+    override fun getAllUsersFromDb(): LiveData<List<ResultUserItem>> {
         return userDao.loadUserList()
     }
 }

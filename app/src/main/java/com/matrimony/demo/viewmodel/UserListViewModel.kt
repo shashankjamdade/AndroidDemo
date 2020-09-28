@@ -2,31 +2,26 @@ package com.matrimony.demo.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.matrimony.demo.listener.UserRepository
 import com.matrimony.demo.model.ResultUserItem
 import com.matrimony.demo.model.UserListResponse
-import com.matrimony.demo.repository.UserRepository
+import com.matrimony.demo.repository.UserRepositoryImpl
 
 class UserListViewModel  @ViewModelInject constructor(
-    val userRepository: UserRepository
+    val userRepositoryImpl: UserRepository
 ) : ViewModel(), LifecycleObserver {
 
-    private val errorOnAPI = MutableLiveData<String>()
-    var userListMutableLiveData = MutableLiveData<UserListResponse>()
-
     fun fetchUsersFromDb(): LiveData<List<ResultUserItem>> {
-        return userRepository.getAllUsersFromDb();
+        return userRepositoryImpl.getAllUsersFromDb();
     }
 
 
     fun fetchUserListInfo(results: Int): MutableLiveData<UserListResponse> {
-        return userRepository?.fetchAllUsers(results)
+        return userRepositoryImpl?.fetchAllUsers(results)
     }
 
     fun updateUserInfo(usr: ResultUserItem) {
-        userRepository.updateUser(usr);
+        userRepositoryImpl.updateUser(usr);
     }
-
-    fun fetchError(): LiveData<String> = errorOnAPI
-    fun fetchUsersLiveData(): LiveData<UserListResponse> = userListMutableLiveData
 
 }

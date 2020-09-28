@@ -69,17 +69,6 @@ class UserListActivity : AppCompatActivity(), ItemClickListener {
             //From local DB
             fetchUsersFromDb()
         }
-        /**
-         * If any error occured in viewmodel while fetching data will show/handle
-         */
-        viewModel.fetchError().observe(this, Observer {
-            it?.let {
-                if (!TextUtils.isEmpty(it)) {
-                    CommonUtils.createSnackBar(findViewById(android.R.id.content), "$it")
-                }
-
-            }
-        })
     }
 
     fun fetchUsersFromDb(){
@@ -88,13 +77,17 @@ class UserListActivity : AppCompatActivity(), ItemClickListener {
             override fun onChanged(@Nullable itemlist: List<ResultUserItem>?) {
                 loading_progress.visibility = View.GONE
                 CommonUtils.printLog("DATARETR----> ", "${Gson().toJson(itemlist)}")
-                if(itemlist!=null && itemlist?.size>0){
-                    userListAdapter?.refreshAdapter(itemlist!!)
-                }else{
-                    CommonUtils.createSnackBar( findViewById(android.R.id.content), resources?.getString(R.string.no_data)!!)
-                }
+                setDataToUI(itemlist)
             }
         })
+    }
+
+    fun setDataToUI(itemlist: List<ResultUserItem>?){
+        if(itemlist!=null && itemlist?.size>0){
+            userListAdapter?.refreshAdapter(itemlist!!)
+        }else{
+            CommonUtils.createSnackBar( findViewById(android.R.id.content), resources?.getString(R.string.no_data)!!)
+        }
     }
 
     /**
