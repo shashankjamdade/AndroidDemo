@@ -2,6 +2,7 @@ package com.matrimony.demo.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.matrimony.demo.db.dao.UserDao
 import com.matrimony.demo.di.NetworkModule
 import com.matrimony.demo.model.ResultUserItem
@@ -10,8 +11,8 @@ import com.matrimony.demo.util.CommonUtils
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(val userDao: UserDao):NetworkModule() {
-    fun fetchAllUsers(results:Int): MutableLiveData<UserListResponse> {
+class UserRepository @Inject constructor(val userDao: UserDao) : NetworkModule() {
+    fun fetchAllUsers(results: Int): MutableLiveData<UserListResponse> {
         val data = MutableLiveData<UserListResponse>()
         val errorOnAPI = MutableLiveData<String>()
         CoroutineScope(Dispatchers.IO).launch {
@@ -20,13 +21,12 @@ class UserRepository @Inject constructor(val userDao: UserDao):NetworkModule() {
                 if (response?.isSuccessful!!) {
                     response?.body()?.results?.forEachIndexed { index, resultUserItem ->
                         resultUserItem?.userId = index?.toString()
-                        CommonUtils.printLog("INTERATE","${resultUserItem?.userId}")
+                        CommonUtils.printLog("INTERATE", "${resultUserItem?.userId}")
                     }
                     /**
                      * Insert data in Room db
                      */
-                    insertUserList(response?.body()?.results!!)
-
+                    insertUserList((response?.body()?.results as MutableList<ResultUserItem>?)!!)
                     data.postValue(response?.body())
                 } else {
                     errorOnAPI.postValue("Something went wrong::${response.message()}")

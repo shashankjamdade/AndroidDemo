@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName
 
 data class UserListResponse(
     @SerializedName("results")
-    var results: ArrayList<ResultUserItem>? = ArrayList()
+    var results: List<ResultUserItem>? = ArrayList()
 )
 
 @Entity
@@ -93,7 +93,7 @@ data class Name(
     @SerializedName("title")
     val title: String? = "",
     @SerializedName("first")
-    val first: String? = ""
+    var first: String? = ""
 )
 
 
