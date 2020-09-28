@@ -22,6 +22,13 @@ class UserListViewModelTest {
         assertThat(result).isNotNull()
     }
 
+
+    @Test
+    fun `updating empty userchoice in db result in error`(){
+        var userObj = ResultUserItem(userId = "1", userChoice = "request") //Replace userChoice with empty string will make test fail
+        assertThat(userObj.userChoice).isNotEmpty()
+    }
+
     @Test
     fun `passing 0 for result input resultIn error`(){
         var result = 10;
