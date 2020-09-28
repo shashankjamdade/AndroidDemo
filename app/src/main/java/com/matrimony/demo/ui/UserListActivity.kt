@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.Nullable
-import androidx.lifecycle.LiveData
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.matrimony.demo.R
@@ -15,37 +15,22 @@ import com.matrimony.demo.listener.ItemClickListener
 import com.matrimony.demo.model.ResultUserItem
 import com.matrimony.demo.util.CommonUtils
 import com.matrimony.demo.viewmodel.UserListViewModel
-import com.matrimony.demo.viewmodel.ViewModelProviderFactory
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_user_list.*
-import javax.inject.Inject
 
+@AndroidEntryPoint
+class UserListActivity : AppCompatActivity(), ItemClickListener {
 
-class UserListActivity : DaggerAppCompatActivity(), ItemClickListener {
-
-    lateinit var viewModel: UserListViewModel
     private var userListAdapter: UserListAdapter? = null
-
-    @Inject
-    lateinit var viewmodelProviderFactory: ViewModelProviderFactory
-
+    private val viewModel: UserListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_list)
-        initViewModel()
         initAdapter()
         fetchUserList();
     }
 
-
-    /**
-     * Initialize viewmodel
-     */
-    private fun initViewModel() {
-        viewModel =
-            ViewModelProviders.of(this, viewmodelProviderFactory).get(UserListViewModel::class.java)
-    }
 
     /**
      * Initialize adapter

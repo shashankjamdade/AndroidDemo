@@ -1,12 +1,12 @@
 package com.matrimony.demo.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.matrimony.demo.model.ResultUserItem
 import com.matrimony.demo.model.UserListResponse
 import com.matrimony.demo.repository.UserRepository
-import javax.inject.Inject
 
-class UserListViewModel @Inject constructor(
+class UserListViewModel  @ViewModelInject constructor(
     val userRepository: UserRepository
 ) : ViewModel(), LifecycleObserver {
 

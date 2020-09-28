@@ -2,22 +2,21 @@ package com.matrimony.demo.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import com.matrimony.demo.api.NetworkAPIService
 import com.matrimony.demo.db.dao.UserDao
-import com.matrimony.demo.di.NetworkModule
 import com.matrimony.demo.model.ResultUserItem
 import com.matrimony.demo.model.UserListResponse
 import com.matrimony.demo.util.CommonUtils
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(val userDao: UserDao) : NetworkModule() {
+class UserRepository @Inject constructor(val apiService: NetworkAPIService, val userDao: UserDao) {
     fun fetchAllUsers(results: Int): MutableLiveData<UserListResponse> {
         val data = MutableLiveData<UserListResponse>()
         val errorOnAPI = MutableLiveData<String>()
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val response = getApiInterface()?.fetchUsers(results)
+                val response = apiService?.fetchUsers(results)
                 if (response?.isSuccessful!!) {
                     response?.body()?.results?.forEachIndexed { index, resultUserItem ->
                         resultUserItem?.userId = index?.toString()

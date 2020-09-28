@@ -7,11 +7,13 @@ import com.matrimony.demo.db.AppDatabase
 import com.matrimony.demo.repository.UserRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 
-//Provide all the app level dependency here
 @Module
+@InstallIn(ApplicationComponent::class)
 class AppModule {
 
     @Singleton
@@ -27,8 +29,4 @@ class AppModule {
         return db.userDao()
     }
 
-    @Provides
-    fun providesUserRepository(userDao: UserDao):UserRepository{
-        return UserRepository(userDao)
-    }
 }
