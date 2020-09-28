@@ -9,7 +9,7 @@ import com.matrimony.demo.repository.UserRepositoryImpl
 
 class UserListViewModel  @ViewModelInject constructor(
     val userRepositoryImpl: UserRepository
-) : ViewModel(), LifecycleObserver {
+) : ViewModel() {
 
     fun fetchUsersFromDb(): LiveData<List<ResultUserItem>> {
         return userRepositoryImpl.getAllUsersFromDb();
