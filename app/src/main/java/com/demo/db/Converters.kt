@@ -1,10 +1,9 @@
-package com.matrimony.demo.db
+package com.demo.db
 
 import androidx.room.TypeConverter
-import com.matrimony.demo.model.UserListResponse
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.matrimony.demo.model.ResultUserItem
+import com.demo.model.ResultUserItem
 
 
 class Converters {

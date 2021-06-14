@@ -1,4 +1,4 @@
-package com.matrimony.demo.util;
+package com.demo.util;
 
 import android.annotation.SuppressLint
 import android.app.Activity

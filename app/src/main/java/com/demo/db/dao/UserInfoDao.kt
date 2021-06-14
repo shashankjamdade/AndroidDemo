@@ -1,10 +1,8 @@
-package com.matrimony.demo.db.dao
+package com.demo.db.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.matrimony.demo.model.ResultUserItem
-import com.matrimony.demo.model.UserListResponse
+import com.demo.model.ResultUserItem
 
 @Dao
 interface UserDao {

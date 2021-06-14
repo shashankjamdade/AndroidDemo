@@ -1,4 +1,4 @@
-package com.matrimony.demo.api
+package com.demo.api
 
 data class ResultData<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {

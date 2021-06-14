@@ -1,4 +1,4 @@
-package com.matrimony.demo.ui
+package com.demo.ui
 
 import android.content.Context
 import android.text.TextUtils
@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.matrimony.demo.R
-import com.matrimony.demo.listener.ItemClickListener
-import com.matrimony.demo.model.ResultUserItem
+import com.demo.listener.ItemClickListener
+import com.demo.model.ResultUserItem
 import kotlinx.android.synthetic.main.item_user_list.view.*
 
 class UserListAdapter(

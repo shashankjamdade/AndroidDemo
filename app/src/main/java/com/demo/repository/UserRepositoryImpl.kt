@@ -1,13 +1,13 @@
-package com.matrimony.demo.repository
+package com.demo.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.matrimony.demo.api.NetworkAPIService
-import com.matrimony.demo.db.dao.UserDao
-import com.matrimony.demo.listener.UserRepository
-import com.matrimony.demo.model.ResultUserItem
-import com.matrimony.demo.model.UserListResponse
-import com.matrimony.demo.util.CommonUtils
+import com.demo.api.NetworkAPIService
+import com.demo.db.dao.UserDao
+import com.demo.listener.UserRepository
+import com.demo.model.ResultUserItem
+import com.demo.model.UserListResponse
+import com.demo.util.CommonUtils
 import kotlinx.coroutines.*
 import javax.inject.Inject
 

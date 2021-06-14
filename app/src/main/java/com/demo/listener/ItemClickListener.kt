@@ -1,4 +1,4 @@
-package com.matrimony.demo.listener
+package com.demo.listener
 
 
 interface ItemClickListener {

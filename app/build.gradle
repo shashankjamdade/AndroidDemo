@@ -14,7 +14,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "com.matrimony.demo"
+        applicationId "com.demo"
         minSdkVersion 15
         targetSdkVersion 29
         versionCode 1

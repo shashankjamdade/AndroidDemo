@@ -7,12 +7,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth.assertThat
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
-import com.matrimony.demo.db.AppDatabase
-import com.matrimony.demo.db.dao.UserDao
+import com.demo.db.AppDatabase
+import com.demo.db.dao.UserDao
 import com.matrimony.demo.getOrAwaitValue
-import com.matrimony.demo.model.Name
-import com.matrimony.demo.model.ResultUserItem
+import com.demo.model.ResultUserItem
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After

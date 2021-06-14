@@ -1,4 +1,4 @@
-package com.matrimony.demo.api
+package com.demo.api
 
 class ApiName {
     companion object {

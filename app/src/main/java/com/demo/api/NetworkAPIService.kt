@@ -1,6 +1,6 @@
-package com.matrimony.demo.api
+package com.demo.api
 
-import com.matrimony.demo.model.UserListResponse
+import com.demo.model.UserListResponse
 import retrofit2.Response
 import retrofit2.http.*
 

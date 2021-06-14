@@ -1,9 +1,9 @@
-package com.matrimony.demo.listener
+package com.demo.listener
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.matrimony.demo.model.ResultUserItem
-import com.matrimony.demo.model.UserListResponse
+import com.demo.model.ResultUserItem
+import com.demo.model.UserListResponse
 
 interface UserRepository {
 

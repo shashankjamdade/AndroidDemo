@@ -3,12 +3,12 @@ package com.matrimony.demo.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
-import com.matrimony.demo.listener.UserRepository
-import com.matrimony.demo.model.ResultUserItem
-import com.matrimony.demo.model.UserListResponse
+import com.demo.listener.UserRepository
+import com.demo.model.ResultUserItem
+import com.demo.model.UserListResponse
 
 //This is for viewmodel testing
-class FakeUserRepositoryImplTest:UserRepository{
+class FakeUserRepositoryImplTest: UserRepository {
 
     private val userList = mutableListOf<ResultUserItem>()
 

@@ -1,4 +1,4 @@
-package com.matrimony.demo
+package com.demo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

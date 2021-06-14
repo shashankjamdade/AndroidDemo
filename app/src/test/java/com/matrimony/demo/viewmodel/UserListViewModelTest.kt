@@ -1,8 +1,9 @@
 package com.matrimony.demo.viewmodel
 
 import com.google.common.truth.Truth.assertThat
-import com.matrimony.demo.model.ResultUserItem
+import com.demo.model.ResultUserItem
 import com.matrimony.demo.repository.FakeUserRepositoryImplTest
+import com.demo.viewmodel.UserListViewModel
 import org.junit.Before
 import org.junit.Test
 

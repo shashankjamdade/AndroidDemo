@@ -1,7 +1,7 @@
-package com.matrimony.demo.di
+package com.demo.di
 
-import com.matrimony.demo.api.NetworkAPIService
-import com.matrimony.demo.api.NetworkUtil
+import com.demo.api.NetworkAPIService
+import com.demo.api.NetworkUtil
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +12,6 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)

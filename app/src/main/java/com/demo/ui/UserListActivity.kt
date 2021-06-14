@@ -1,9 +1,7 @@
-package com.matrimony.demo.ui
+package com.demo.ui
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
@@ -11,10 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.matrimony.demo.R
-import com.matrimony.demo.listener.ItemClickListener
-import com.matrimony.demo.model.ResultUserItem
-import com.matrimony.demo.util.CommonUtils
-import com.matrimony.demo.viewmodel.UserListViewModel
+import com.demo.listener.ItemClickListener
+import com.demo.model.ResultUserItem
+import com.demo.util.CommonUtils
+import com.demo.viewmodel.UserListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_user_list.*
 

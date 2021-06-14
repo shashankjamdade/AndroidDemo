@@ -1,8 +1,8 @@
-package com.matrimony.demo.model
+package com.demo.model
 
 
 import androidx.room.*
-import com.matrimony.demo.db.Converters
+import com.demo.db.Converters
 import com.google.gson.annotations.SerializedName
 
 data class UserListResponse(

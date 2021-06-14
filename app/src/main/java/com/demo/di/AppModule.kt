@@ -1,9 +1,9 @@
-package com.matrimony.demo.di
+package com.demo.di
 
 import android.app.Application
 import androidx.room.Room
-import com.matrimony.demo.db.dao.UserDao
-import com.matrimony.demo.db.AppDatabase
+import com.demo.db.dao.UserDao
+import com.demo.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
